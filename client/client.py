@@ -1,9 +1,10 @@
 from asyncio.tasks import sleep
 import websockets
 import asyncio
+import os
 
 async def listen():
-    url = "ws://localhost:8080"
+    url = "ws://" + os.getenv("URL") + ":" + os.getenv("PORT")
     async with websockets.connect(url) as ws:
         await ws.send("hello, there!")
 
