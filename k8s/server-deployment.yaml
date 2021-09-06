@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: socket-server-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: socket-server
+  template:
+    metadata:
+      labels:
+        app: socket-server
+    spec:
+      containers:
+        - name: socket-server
+          image: halbard/socket-server
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: socket-service
+spec:
+  selector:
+    app: socket-server
+  ports:
+    - name: socket
+      protocol: TCP
+      port: 8080
